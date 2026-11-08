@@ -42,7 +42,8 @@ h2{font-size:clamp(36px,6vw,64px);letter-spacing:-.04em;line-height:1.05;font-we
 .card:hover{transform:translateY(-6px) scale(1.02)}
 .card:active{transform:scale(.97)}
 .thumb{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#1b1b1f,#0a0a0c);overflow:hidden;border-radius:4px;border:1px solid var(--line)}
-.thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s,filter .4s;filter:brightness(.88)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s,filter .4s,opacity .5s;filter:brightness(.88);opacity:0}
+.thumb img.ok{opacity:1}
 .card:hover .thumb img{transform:scale(1.07);filter:brightness(1.05)}
 .thumb .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#444;font-size:34px;font-weight:700;letter-spacing:-.04em;z-index:0}
 .thumb img{position:relative;z-index:1}
@@ -60,7 +61,6 @@ h2{font-size:clamp(36px,6vw,64px);letter-spacing:-.04em;line-height:1.05;font-we
 .flag .thumb{border-radius:14px;box-shadow:0 40px 100px -30px rgba(255,45,58,.35)}
 .flag h3{font-size:clamp(30px,4vw,48px);letter-spacing:-.03em;line-height:1.05}
 .big{font-size:clamp(56px,9vw,96px);font-weight:700;letter-spacing:-.05em;background:linear-gradient(90deg,#ff2d3a,#ff7a45);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
-.flag .card:hover{transform:scale(1.015)}
 .flag-card{display:block;transition:transform .4s}
 .flag-card:hover{transform:scale(1.015)}.flag-card:active{transform:scale(.98)}
 /* grid */
@@ -70,7 +70,6 @@ h2{font-size:clamp(36px,6vw,64px);letter-spacing:-.04em;line-height:1.05;font-we
 .tab{background:#1a1112;border:0;color:#d2d2d7;padding:9px 18px;border-radius:99px;font-size:14px;cursor:pointer;transition:.2s}
 .tab:hover{background:#2e1a1d}.tab:active{transform:scale(.94)}
 .tab.on{background:#f5f5f7;color:#000}
-.hide{display:none!important}
 .links{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
 footer{border-top:1px solid var(--line);padding:50px 22px;text-align:center;color:var(--mute);font-size:13px}
 footer .links{justify-content:center;margin:0 0 20px}
@@ -95,8 +94,8 @@ footer a{color:#d2d2d7}footer a:hover{color:#fff}
 <div class="reveal"><div class="eyebrow">Most watched</div><h2>The film that started it all.</h2></div>
 <div class="flag reveal">
 <a class="flag-card" href="https://www.youtube.com/watch?v=193TXI7meKE" target="_blank" rel="noopener" aria-label="Watch The Last Collection on YouTube">
-<div class="thumb"><div class="ph">200Block</div><img src="https://i.ytimg.com/vi/193TXI7meKE/maxresdefault.jpg" alt="The Last Collection | A Short Film" onload="ld(this,'193TXI7meKE')" onerror="fb(this,'193TXI7meKE')"><div class="play"></div></div></a>
-<div><div class="big">8.2K</div><p class="sub" style="margin-top:6px">views on YouTube</p>
+<div class="thumb"><div class="ph">200Block</div><img data-id="193TXI7meKE" alt="The Last Collection | A Short Film"><div class="play"></div></div></a>
+<div><div class="big" id="flagViews">8.2K</div><p class="sub" style="margin-top:6px">views on YouTube</p>
 <h3 style="margin-top:28px">The Last Collection</h3>
 <p class="sub">A short film · 19:09</p>
 <div class="links"><a class="btn p" href="https://www.youtube.com/watch?v=193TXI7meKE" target="_blank" rel="noopener">Watch film</a><a class="btn s" href="https://www.youtube.com/watch?v=tLvidUu4VGI" target="_blank" rel="noopener">Trailer</a></div></div>
@@ -114,7 +113,7 @@ footer a{color:#d2d2d7}footer a:hover{color:#fff}
 <p class="sub">Films, 200TV episodes, Inter-Dimensional Streaming, and music.</p></div>
 <div class="tabs reveal" id="tabs"></div>
 <div class="grid" id="grid"></div>
-<p class="sub" style="margin-top:50px;font-size:13px">View counts are a public snapshot from November 2026 and will change.</p>
+<p class="sub" id="note" style="margin-top:50px;font-size:13px">View counts are a public snapshot from November 2026 and will change.</p>
 </section>
 
 <footer>
@@ -123,9 +122,17 @@ footer a{color:#d2d2d7}footer a:hover{color:#fff}
 </footer>
 
 <script>
+/* ============ YouTube integration ============
+   Works out of the box: every thumbnail is pulled live from YouTube's image
+   servers (with oEmbed as a fallback).
+   OPTIONAL: paste a YouTube Data API v3 key below and the page will also sync
+   the channel's full upload list, titles, thumbnails and live view counts.
+   (Restrict the key to your site's domain in Google Cloud Console.) */
+const CONFIG={API_KEY:"",HANDLE:"200block"};
+
 const Y=id=>`https://www.youtube.com/watch?v=${id}`;
 // [title,id,views,date,cat]
-const V=[
+let V=[
 ["Half A Tune | The 200block Batman Halloween Special","_dNWN_3M0EE","662","","Films"],
 ["Cleaning House (2024)","Bm9wEoHVad8","633","","Films"],
 ["Detention (2024)","d7dLE78wxBE","512","Sep 15, 2024","Films"],
@@ -156,35 +163,92 @@ const V=[
 ["PILOT · 200TV 001","zBKdVSE_NXQ","","","200TV"],
 ["Church Music · Deep Groove House Mix","Yzz0ZLkM2Ng","","","Music"]
 ];
-const CH=['maxresdefault','sddefault','hqdefault','mqdefault'];
-function fb(img,id){const n=(img.dataset.n|0)+1;if(n<CH.length){img.dataset.n=n;img.src=`https://i.ytimg.com/vi/${id}/${CH[n]}.jpg`}else img.style.display='none'}
-function ld(img,id){if(img.naturalWidth<=120&&img.naturalWidth>0)fb(img,id)}
-function card(v,i,showNo){
- const [t,id,vw,d,c]=v;
- const sub=[c,d].filter(Boolean).join(' · ');
- return `<a class="card reveal" href="${Y(id)}" target="_blank" rel="noopener" aria-label="Watch ${t.replace(/"/g,'')} on YouTube">
- <div class="thumb"><div class="ph">200</div><img loading="lazy" src="https://i.ytimg.com/vi/${id}/maxresdefault.jpg" alt="${t.replace(/"/g,'')}" onload="ld(this,'${id}')" onerror="fb(this,'${id}')"><span class="fno">${showNo?'FRAME '+String(i+1).padStart(2,'0'):c.toUpperCase()}</span><div class="play"></div></div>
- <div class="meta"><h3>${t}</h3><p>${vw?`<span class="views">${vw} views</span>`:''}${sub}</p></div></a>`;
+
+const T={};            // id -> thumbnail URL supplied by the YouTube API
+const SIZES=['maxresdefault','sddefault','hqdefault','mqdefault','default'];
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+const fmt=n=>{n=+n;return n>=1000?(n/1000).toFixed(n>=10000?0:1).replace(/\.0$/,'')+'K':String(n)};
+const catOf=t=>/200TV/i.test(t)?'200TV':/inter-dimensional/i.test(t)?'Inter-Dimensional':/\bmix\b|house/i.test(t)?'Music':'Films';
+
+/* Try a URL; resolve true only if it is a real image (YouTube serves a 120px
+   grey placeholder when a size doesn't exist). */
+const probe=url=>new Promise(res=>{const i=new Image();i.referrerPolicy='no-referrer';i.onload=()=>res(i.naturalWidth>120);i.onerror=()=>res(false);i.src=url});
+
+async function oembedThumb(id){
+  try{const r=await fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(Y(id))}&format=json`);
+    if(!r.ok)return null;return (await r.json()).thumbnail_url||null}catch(e){return null}
 }
-const top=V.slice(0,7);
-document.getElementById('reel').innerHTML=top.map((v,i)=>card(v,i,true).replace(' reveal','')).join('');
-const cats=['All',...new Set(V.map(v=>v[4]))];
-const tabs=document.getElementById('tabs'),grid=document.getElementById('grid');
-tabs.innerHTML=cats.map((c,i)=>`<button class="tab${i?'':' on'}" data-c="${c}">${c}</button>`).join('');
-function render(c){grid.innerHTML=V.filter(v=>c=='All'||v[4]==c).map((v,i)=>card(v,i)).join('');observe()}
-tabs.onclick=e=>{const b=e.target.closest('.tab');if(!b)return;tabs.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));b.classList.add('on');render(b.dataset.c)};
-let io;
+
+async function loadThumb(img){
+  const id=img.dataset.id;if(!id||img.classList.contains('ok'))return;
+  const urls=[T[id],...SIZES.map(s=>`https://i.ytimg.com/vi/${id}/${s}.jpg`)].filter(Boolean);
+  for(const u of urls){if(await probe(u)){img.referrerPolicy='no-referrer';img.src=u;img.classList.add('ok');return}}
+  const o=await oembedThumb(id);
+  if(o&&await probe(o)){img.src=o;img.classList.add('ok')}
+}
+const hydrate=(root=document)=>root.querySelectorAll('img[data-id]:not(.ok)').forEach(loadThumb);
+
+function card(v,i,showNo){
+  const [t,id,vw,d,c]=v;
+  const sub=[c,d].filter(Boolean).join(' · ');
+  return `<a class="card reveal" href="${Y(id)}" target="_blank" rel="noopener" aria-label="Watch ${esc(t)} on YouTube">
+ <div class="thumb"><div class="ph">200</div><img data-id="${id}" alt="${esc(t)}"><span class="fno">${showNo?'FRAME '+String(i+1).padStart(2,'0'):c.toUpperCase()}</span><div class="play"></div></div>
+ <div class="meta"><h3>${esc(t)}</h3><p>${vw?`<span class="views">${vw} views</span>`:''}${sub}</p></div></a>`;
+}
+
+const reel=document.getElementById('reel'),tabs=document.getElementById('tabs'),grid=document.getElementById('grid');
+let io,activeCat='All';
 function observe(){io&&io.disconnect();io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
- document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=el.closest('.grid')?((i%4)*70)+'ms':'0ms';io.observe(el)})}
-render('All');
+  document.querySelectorAll('.reveal').forEach(el=>{el.style.transitionDelay=el.closest('.grid')?((Array.from(el.parentNode.children).indexOf(el)%4)*70)+'ms':'0ms';io.observe(el)})}
+function renderGrid(){grid.innerHTML=V.filter(v=>activeCat=='All'||v[4]==activeCat).map((v,i)=>card(v,i)).join('');observe();hydrate(grid)}
+function renderAll(){
+  const top=V.filter(v=>v[4]=='Films'&&!/trailer/i.test(v[0])&&v[1]!=='193TXI7meKE').slice(0,7);
+  reel.innerHTML=top.map((v,i)=>card(v,i,true).replace(' reveal','')).join('');
+  const cats=['All',...new Set(V.map(v=>v[4]))];
+  if(!cats.includes(activeCat))activeCat='All';
+  tabs.innerHTML=cats.map(c=>`<button class="tab${c==activeCat?' on':''}" data-c="${c}">${c}</button>`).join('');
+  hydrate(reel);renderGrid();
+}
+tabs.onclick=e=>{const b=e.target.closest('.tab');if(!b)return;activeCat=b.dataset.c;tabs.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===b));renderGrid()};
+
+/* ---- optional: sync everything from the YouTube Data API ---- */
+async function syncFromYouTube(){
+  const K=CONFIG.API_KEY;if(!K)return;
+  const api=(p,q)=>fetch(`https://www.googleapis.com/youtube/v3/${p}?key=${K}&${q}`).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()});
+  try{
+    const ch=await api('channels',`part=contentDetails&forHandle=${encodeURIComponent('@'+CONFIG.HANDLE)}`);
+    const up=ch.items[0].contentDetails.relatedPlaylists.uploads;
+    let ids=[],tok='';
+    do{const p=await api('playlistItems',`part=contentDetails&maxResults=50&playlistId=${up}${tok?'&pageToken='+tok:''}`);
+      ids.push(...p.items.map(i=>i.contentDetails.videoId));tok=p.nextPageToken||''}while(tok);
+    const list=[];
+    for(let i=0;i<ids.length;i+=50){
+      const r=await api('videos',`part=snippet,statistics&id=${ids.slice(i,i+50).join(',')}`);
+      r.items.forEach(it=>{const s=it.snippet,th=s.thumbnails||{};
+        T[it.id]=(th.maxres||th.standard||th.high||th.medium||th.default||{}).url;
+        const views=+it.statistics.viewCount||0;
+        list.push([s.title,it.id,views,new Date(s.publishedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),catOf(s.title)])});
+    }
+    list.sort((a,b)=>b[2]-a[2]);
+    V=list.map(v=>[v[0],v[1],v[2]?fmt(v[2]):'',v[3],v[4]]);
+    const f=list.find(v=>v[1]==='193TXI7meKE');if(f)document.getElementById('flagViews').textContent=fmt(f[2]);
+    document.getElementById('note').textContent='Titles, thumbnails and view counts are synced live from YouTube.';
+    renderAll();hydrate();
+  }catch(e){console.warn('YouTube API sync failed, using built-in list.',e)}
+}
+
+renderAll();
+hydrate();               // flagship + all cards
+syncFromYouTube();
+
 const pg=document.getElementById('pg');
 let tick=false;
 addEventListener('scroll',()=>{if(tick)return;tick=true;requestAnimationFrame(()=>{const y=scrollY;document.documentElement.style.setProperty('--sy',y);pg.style.width=(y/(document.body.scrollHeight-innerHeight)*100)+'%';tick=false})},{passive:true});
 // drag-scroll reel
-const r=document.getElementById('reel');let down=false,sx=0,sl=0;
-r.addEventListener('mousedown',e=>{down=true;sx=e.pageX;sl=r.scrollLeft});
+let down=false,sx=0,sl=0;
+reel.addEventListener('mousedown',e=>{down=true;sx=e.pageX;sl=reel.scrollLeft});
 addEventListener('mouseup',()=>down=false);
-r.addEventListener('mousemove',e=>{if(down){r.scrollLeft=sl-(e.pageX-sx)}});
+reel.addEventListener('mousemove',e=>{if(down){reel.scrollLeft=sl-(e.pageX-sx)}});
 </script>
 </body>
 </html>
