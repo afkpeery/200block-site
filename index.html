@@ -25,7 +25,8 @@ nav ul a{transition:color .2s}nav ul a:hover{color:#fff}
 .btn.p{background:var(--acc);color:#fff}.btn.p:hover{background:#ff453a}
 .btn.s{border:1px solid var(--acc);color:var(--acc)}.btn.s:hover{background:rgba(255,45,58,.12)}
 .btn:active{transform:scale(.94)}
-.strip-deco{position:absolute;bottom:0;left:0;right:0;height:14px;opacity:.5;background:repeating-linear-gradient(90deg,transparent 0 14px,#3a1015 14px 34px,transparent 34px 48px)}
+.strip-deco{position:absolute;bottom:0;left:0;right:0;height:34px;opacity:.5}
+.sprockets{background:repeating-linear-gradient(90deg,transparent 0 14px,#3a1015 14px 34px,transparent 34px 48px);height:14px;margin:0 0 0}
 section{padding:120px 22px;max-width:1180px;margin:0 auto}
 .eyebrow{color:var(--acc);font-weight:600;font-size:15px;margin-bottom:10px}
 h2{font-size:clamp(36px,6vw,64px);letter-spacing:-.04em;line-height:1.05;font-weight:700}
@@ -71,7 +72,7 @@ footer{border-top:1px solid var(--line);padding:50px 22px;text-align:center;colo
 footer .links{justify-content:center;margin:0 0 20px}
 footer a{color:#d2d2d7}footer a:hover{color:#fff}
 .clips{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:34px 22px;margin-top:56px}
-button.thumb{display:block;width:100%;padding:0;cursor:pointer;color:inherit}
+button.thumb{display:block;width:100%;padding:0;cursor:pointer;color:inherit;background:none;border:0;text-align:left}
 .thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3}
 .tc{position:absolute;z-index:2;right:8px;bottom:8px;background:rgba(0,0,0,.7);padding:2px 9px;border-radius:99px;font:600 11px ui-monospace,Menlo,monospace}
 .tm{isolation:isolate;position:relative}
@@ -118,20 +119,37 @@ button.thumb{display:block;width:100%;padding:0;cursor:pointer;color:inherit}
 .chk input{width:18px;height:18px;accent-color:var(--acc)}
 button.btn{border:0;cursor:pointer;font:inherit;font-size:17px;justify-self:start}
 #fs.ok{color:#5ee08a}#fs.err{color:#ff8a90}
-@media(max-width:820px){.flag,.two,.row{grid-template-columns:1fr}.flag{gap:28px}section{padding:84px 18px}.tm-hero{gap:30px}nav ul{gap:16px;max-width:66vw;overflow-x:auto;scrollbar-width:none}nav ul::-webkit-scrollbar{display:none}}
+.tm-shots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px;max-width:520px}
+.tm-shots .t{position:relative;display:block;aspect-ratio:16/9;border:1px solid rgba(53,232,255,.28);border-radius:4px 14px 4px 14px;overflow:hidden;background:#0a0a0c}
+.tm-shots img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .6s,transform .3s}
+.tm-shots img.ok{opacity:1}
+.tm-shots a:hover img{transform:scale(1.06)}
+.page-head{padding:170px 22px 20px;max-width:1180px;margin:0 auto}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:22px;margin-top:56px}
+.tile{display:block;padding:30px;border:1px solid var(--line);border-radius:18px;background:var(--card);transition:transform .3s,border-color .3s}
+.tile:hover{transform:translateY(-6px);border-color:var(--acc)}
+.tile h3{font-size:22px;letter-spacing:-.02em}
+.tile p{color:var(--mute);font-size:14px;margin-top:10px;line-height:1.5}
+.tile span{display:inline-block;margin-top:18px;color:var(--acc);font-size:14px;font-weight:600}
+.mshots{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:56px}
+.mshots a{position:relative;display:block;aspect-ratio:16/9;border-radius:4px 16px 4px 16px;overflow:hidden;background:#0a0a0c;border:1px solid rgba(53,232,255,.28)}
+.mshots img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .6s,transform .4s}
+.mshots img.ok{opacity:1}
+.mshots a:hover img{transform:scale(1.07)}
+@media(max-width:820px){.flag,.two,.row{grid-template-columns:1fr}.flag{gap:28px}section{padding:84px 18px}.tm-hero{gap:30px}.tm-shots,.mshots{grid-template-columns:repeat(2,1fr)}nav ul{gap:16px;max-width:62vw;overflow-x:auto;scrollbar-width:none}nav ul::-webkit-scrollbar{display:none}}
 @media(prefers-reduced-motion:reduce){.clock .a,.tm h2,.status i{animation:none!important}*{transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
 </style>
 </head>
 <body>
 <div class="progress" id="pg"></div>
-<nav><a href="#top" class="logo">200Block</a>
-<ul><li><a href="#flagship">Featured</a></li><li><a href="#top-films">Top Films</a></li><li><a href="#clips">Highlights</a></li><li><a href="#upcoming">Upcoming</a></li><li><a href="#archive">Archive</a></li><li><a href="#consult">Consultations</a></li><li><a href="#contact">Contact</a></li></ul></nav>
+<nav><a href="index.html" class="logo">200Block</a>
+<ul><li><a href="index.html">Home</a></li><li><a href="films.html">Films</a></li><li><a href="clips.html">Clips</a></li><li><a href="upcoming.html">Upcoming</a></li><li><a href="archive.html">Archive</a></li><li><a href="consultations.html">Consultations</a></li><li><a href="contact.html">Contact</a></li><li><a href="https://www.youtube.com/@200block" target="_blank" rel="noopener">YouTube</a></li></ul></nav>
 
 <header class="hero" id="top">
 <h1>200Block</h1>
 <p>a creative collective.</p>
-<div class="btns"><a class="btn p" href="https://www.youtube.com/watch?v=193TXI7meKE" target="_blank" rel="noopener">Watch The Last Collection</a><a class="btn s" href="#top-films">Explore the films</a></div>
-<div class="strip-deco"></div>
+<div class="btns"><a class="btn p" href="https://www.youtube.com/watch?v=193TXI7meKE" target="_blank" rel="noopener">Watch The Last Collection</a><a class="btn s" href="films.html">Explore the films</a></div>
+<div class="strip-deco sprockets"></div>
 </header>
 
 <section id="flagship">
@@ -142,7 +160,20 @@ button.btn{border:0;cursor:pointer;font:inherit;font-size:17px;justify-self:star
 <div><div class="big" id="flagViews">8.2K</div><p class="sub" style="margin-top:6px">views on YouTube</p>
 <h3 style="margin-top:28px">The Last Collection</h3>
 <p class="sub">A short film · 19:09</p>
-<div class="links"><a class="btn p" href="https://www.youtube.com/watch?v=193TXI7meKE" target="_blank" rel="noopener">Watch film</a><a class="btn s" href="https://www.youtube.com/watch?v=tLvidUu4VGI" target="_blank" rel="noopener">Trailer</a></div></div>
+<div class="links"><a class="btn p" href="films.html">About the film</a><a class="btn s" href="https://www.youtube.com/watch?v=tLvidUu4VGI" target="_blank" rel="noopener">Trailer</a></div></div>
+</div>
+</section>
+
+<section id="explore">
+<div class="reveal"><div class="eyebrow">Explore</div><h2>Step through the door.</h2>
+<p class="sub">Each part of the collective now has its own page.</p></div>
+<div class="tiles reveal">
+<a class="tile" href="films.html"><h3>Films</h3><p>The most-watched work, led by The Last Collection.</p><span>Open films →</span></a>
+<a class="tile" href="clips.html"><h3>Clips</h3><p>Short windows into every project we have out.</p><span>Open clips →</span></a>
+<a class="tile" href="upcoming.html"><h3>Upcoming</h3><p>Time Management, written by Brandon Hawkins.</p><span>Open upcoming →</span></a>
+<a class="tile" href="archive.html"><h3>Archive</h3><p>Films, 200TV, Inter-Dimensional Streaming and music.</p><span>Open archive →</span></a>
+<a class="tile" href="consultations.html"><h3>Consultations</h3><p>Script and storyboard sessions for filmmakers.</p><span>Open consultations →</span></a>
+<a class="tile" href="contact.html"><h3>Contact</h3><p>Questions, collaborations, and list signups.</p><span>Open contact →</span></a>
 </div>
 </section>
 
@@ -152,81 +183,13 @@ button.btn{border:0;cursor:pointer;font:inherit;font-size:17px;justify-self:star
 <div class="tape reveal"><div class="frame-row" id="reel"></div></div>
 </section>
 
-<section id="clips">
-<div class="reveal"><div class="eyebrow">Highlights</div><h2>Watch the best parts.</h2>
-<p class="sub">Short clips from our most-watched films. Press play to watch right here, then catch the full film on YouTube.</p></div>
-<div class="clips" id="clipGrid"></div>
-</section>
-
-<section id="upcoming" class="tm">
-<div class="reveal"><div class="eyebrow">Upcoming project</div></div>
-<div class="tm-hero reveal">
-<div class="clock"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="94" fill="none" stroke="#35e8ff" stroke-opacity=".55"/><circle class="a" cx="100" cy="100" r="82" fill="none" stroke="#8a5cff" stroke-width="3" stroke-dasharray="2 9"/><circle class="a" cx="100" cy="100" r="66" fill="none" stroke="#35e8ff" stroke-opacity=".6" stroke-dasharray="40 14 4 14"/><g stroke="#35e8ff" stroke-width="3" stroke-linecap="round"><line class="a h" x1="100" y1="100" x2="100" y2="60"/><line class="a m" x1="100" y1="100" x2="100" y2="38" stroke-width="2"/></g><circle cx="100" cy="100" r="5" fill="#8a5cff"/></svg></div>
-<div><p class="sub" style="margin:0">a 200 Block Production</p><h2>Time Management</h2><p class="by">by Brandon Hawkins</p><p class="tag">“Believe what you see, never what they say.”</p><div class="status"><i></i>In development · Release date TBA</div></div>
-</div>
-<div class="syn reveal">
-<p>In a small town, everyone knows the story of Duncan Lane: the “boop” kid, the first minor ever wiped by the CIA, the cautionary tale of knowing too much too early. Three friends don’t buy it.</p>
-<p>Hollywood is sure it’s all connected. Penny can’t shake the feeling she’s lived this before. Todd just wants everyone to stay out of trouble, even as his curiosity pulls him in. Their search leads to the TMA, an organization built on one family’s time technology and ruled by the unreadable Lord Zabius, and to the CIA men whose job is to make inconvenient truths disappear.</p>
-<p>With a bureaucrat guarding the status quo and an agent torn between his orders and his code, the friends discover that the only thing worse than being wrong about what you saw is being right.</p>
-<div class="chips"><span>Truth vs. authority</span><span>Memory &amp; erasure</span><span>Time as power</span><span>Fear vs. curiosity</span></div>
-</div>
-<div class="cast" id="cast"></div>
-</section>
-
-<section id="archive">
-<div class="reveal"><div class="eyebrow">Archive</div><h2>Everything we've made.</h2>
-<p class="sub">Films, 200TV episodes, Inter-Dimensional Streaming, and music.</p></div>
-<div class="tabs reveal" id="tabs"></div>
-<div class="grid" id="grid"></div>
-<p class="sub" id="note" style="margin-top:50px;font-size:13px">View counts are a public snapshot from November 2026 and will change.</p>
-</section>
-
-<section id="consult">
-<div class="reveal"><div class="eyebrow">Consultations</div><h2>Sharpen it before the camera rolls.</h2>
-<p class="sub">One-on-one sessions with the 200Block team for filmmakers at any stage.</p></div>
-<div class="two reveal">
-<article class="panel"><h3>Script consultation</h3><p>Get honest, practical notes on your screenplay.</p>
-<ul><li>Structure, pacing and act breaks</li><li>Character voice and dialogue</li><li>What to trim for a short-film runtime</li><li>Written feedback you can act on</li></ul>
-<a class="btn p" href="#contact" data-topic="Script consultation">Book a script consult</a></article>
-<article class="panel"><h3>Storyboard &amp; shot list consultation</h3><p>Turn scenes into a plan your crew can shoot.</p>
-<ul><li>Breaking scenes into shots and coverage</li><li>Storyboard review: framing, blocking, continuity</li><li>Shot lists sized to your crew, locations and schedule</li><li>Camera and lens suggestions</li></ul>
-<a class="btn p" href="#contact" data-topic="Storyboard &amp; shot list consultation">Book a shot list consult</a></article>
-</div>
-</section>
-
-<section id="contact">
-<div class="reveal"><div class="eyebrow">Contact</div><h2>Let’s talk.</h2>
-<p class="sub">Questions, consultations, collaborations. Name and email are required; everything else is optional.</p></div>
-<form class="form reveal" id="cf">
-<div class="row"><label>Name <b>*</b><input name="name" required autocomplete="name"></label>
-<label>Email <b>*</b><input type="email" name="email" required autocomplete="email"></label></div>
-<div class="row"><label>Phone <span>(optional)</span><input type="tel" name="phone" autocomplete="tel" pattern="[0-9+()\-\s.]{7,20}" title="Digits, spaces, dashes or parentheses"></label>
-<label>I’m interested in<select name="topic"><option>General inquiry</option><option>Script consultation</option><option>Storyboard &amp; shot list consultation</option><option>Time Management</option></select></label></div>
-<label>Message <span>(optional)</span><textarea name="message" rows="4"></textarea></label>
-<fieldset><legend>Sign me up for (optional)</legend>
-<label class="chk"><input type="checkbox" name="lists" value="Newsletter"> Newsletter</label>
-<label class="chk"><input type="checkbox" name="lists" value="Deals"> Deals</label>
-<label class="chk"><input type="checkbox" name="lists" value="Promotions"> Promotions</label></fieldset>
-<fieldset><legend>Send updates by</legend>
-<label class="chk"><input type="checkbox" name="channels" value="Email"> Emails</label>
-<label class="chk"><input type="checkbox" name="channels" value="Text"> Text blasts</label></fieldset>
-<p class="fine">Text blasts require a phone number. By selecting text, you agree to receive recurring texts from 200Block. Message and data rates may apply. Reply STOP to opt out. Unsubscribe from emails anytime.</p>
-<input name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
-<button class="btn p" type="submit">Send</button><p id="fs" role="status"></p>
-</form>
-</section>
-
 <footer>
 <div class="links"><a href="https://www.youtube.com/@200block" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/200blockprod/" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@200blockprod" target="_blank" rel="noopener">TikTok</a></div>
 200Block · a creative collective.
 </footer>
 
 <script>
-/* YouTube integration: thumbnails load live from YouTube. Optional: add a
-   YouTube Data API v3 key to sync titles and live view counts.
-   FORM_ENDPOINT: paste a Formspree-style URL (https://formspree.io/f/xxxx). */
-const CONFIG={API_KEY:"",HANDLE:"200block",FORM_ENDPOINT:""};
-
+const CONFIG={API_KEY:"",HANDLE:"200block"};
 const Y=id=>`https://www.youtube.com/watch?v=${id}`;
 let V=[
 ["Half A Tune | The 200block Batman Halloween Special","_dNWN_3M0EE","662","","Films"],
@@ -259,7 +222,6 @@ let V=[
 ["PILOT · 200TV 001","zBKdVSE_NXQ","","","200TV"],
 ["Church Music · Deep Groove House Mix","Yzz0ZLkM2Ng","","","Music"]
 ];
-
 const T={};
 const SIZES=['maxresdefault','sddefault','hqdefault','mqdefault','default'];
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
@@ -274,26 +236,16 @@ async function loadThumb(img){
   const o=await oembedThumb(id);if(o&&await probe(o)){img.src=o;img.classList.add('ok')}
 }
 const hydrate=(root=document)=>root.querySelectorAll('img[data-id]:not(.ok)').forEach(loadThumb);
-
+const reel=document.getElementById('reel');
+let io;
+function observe(){io&&io.disconnect();io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>{el.style.transitionDelay=el.closest('.grid')||el.closest('.clips')||el.closest('.cast')||el.closest('.tiles')||el.closest('.mshots')?((Array.from(el.parentNode.children).indexOf(el)%4)*70)+'ms':'0ms';io.observe(el)})}
 function card(v,i,showNo){
   const [t,id,vw,d,c]=v;const sub=[c,d].filter(Boolean).join(' · ');
   return `<a class="card reveal" href="${Y(id)}" target="_blank" rel="noopener" aria-label="Watch ${esc(t)} on YouTube"><div class="thumb"><div class="ph">200</div><img data-id="${id}" alt="${esc(t)}"><span class="fno">${showNo?'FRAME '+String(i+1).padStart(2,'0'):c.toUpperCase()}</span><div class="play"></div></div><div class="meta"><h3>${esc(t)}</h3><p>${vw?`<span class="views">${vw} views</span>`:''}${sub}</p></div></a>`;
 }
-
-const reel=document.getElementById('reel'),tabs=document.getElementById('tabs'),grid=document.getElementById('grid');
-let io,activeCat='All';
-function observe(){io&&io.disconnect();io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(el=>{el.style.transitionDelay=(el.closest('.grid')||el.closest('.clips')||el.closest('.cast'))?((Array.from(el.parentNode.children).indexOf(el)%4)*70)+'ms':'0ms';io.observe(el)})}
-function renderGrid(){grid.innerHTML=V.filter(v=>activeCat=='All'||v[4]==activeCat).map((v,i)=>card(v,i)).join('');observe();hydrate(grid)}
-function renderAll(){
-  const top=V.filter(v=>v[4]=='Films'&&!/trailer/i.test(v[0])&&v[1]!=='193TXI7meKE').slice(0,7);
-  reel.innerHTML=top.map((v,i)=>card(v,i,true).replace(' reveal','')).join('');
-  const cats=['All',...new Set(V.map(v=>v[4]))];if(!cats.includes(activeCat))activeCat='All';
-  tabs.innerHTML=cats.map(c=>`<button class="tab${c==activeCat?' on':''}" data-c="${c}">${c}</button>`).join('');
-  hydrate(reel);renderGrid();
-}
-tabs.onclick=e=>{const b=e.target.closest('.tab');if(!b)return;activeCat=b.dataset.c;tabs.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===b));renderGrid()};
-
+function renderReel(){const top=V.filter(v=>v[4]=='Films'&&!/trailer/i.test(v[0])&&v[1]!=='193TXI7meKE').slice(0,7);
+  reel.innerHTML=top.map((v,i)=>card(v,i,true).replace(' reveal','')).join('');hydrate(reel)}
 async function syncFromYouTube(){
   const K=CONFIG.API_KEY;if(!K)return;
   const api=(p,q)=>fetch(`https://www.googleapis.com/youtube/v3/${p}?key=${K}&${q}`).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()});
@@ -306,60 +258,11 @@ async function syncFromYouTube(){
       r.items.forEach(it=>{const s=it.snippet,th=s.thumbnails||{};T[it.id]=(th.maxres||th.standard||th.high||th.medium||th.default||{}).url;
         list.push([s.title,it.id,+it.statistics.viewCount||0,new Date(s.publishedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),catOf(s.title)])})}
     list.sort((a,b)=>b[2]-a[2]);V=list.map(v=>[v[0],v[1],v[2]?fmt(v[2]):'',v[3],v[4]]);
-    const f=list.find(v=>v[1]==='193TXI7meKE');if(f)document.getElementById('flagViews').textContent=fmt(f[2]);
-    document.getElementById('note').textContent='Titles, thumbnails and view counts are synced live from YouTube.';
-    renderAll();hydrate();
+    const f=list.find(v=>v[1]==='193TXI7meKE');if(f){const fv=document.getElementById('flagViews');if(fv)fv.textContent=fmt(f[2])}
+    renderReel();observe();hydrate();
   }catch(e){console.warn('YouTube API sync failed, using built-in list.',e)}
 }
-
-/* Highlights: [videoId, film, label, start s, end s]. Edit times to move a clip. */
-const CLIPS=[
-["193TXI7meKE","The Last Collection","Opening scene",0,60],
-["193TXI7meKE","The Last Collection","The turn",600,660],
-["193TXI7meKE","The Last Collection","Final scene",1080,1149],
-["_dNWN_3M0EE","Half A Tune","Opening scene",0,60],
-["Bm9wEoHVad8","Cleaning House","Opening scene",0,60],
-["d7dLE78wxBE","Detention","Opening scene",0,60]];
-const tc=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
-const cg=document.getElementById('clipGrid');
-cg.innerHTML=CLIPS.map(([id,t,l,s,e])=>`<div class="card reveal"><button class="thumb" data-v="${id}" data-s="${s}" data-e="${e}" aria-label="Play clip: ${esc(t)}, ${esc(l)}"><div class="ph">200</div><img data-id="${id}" alt=""><span class="fno">CLIP</span><span class="tc">${tc(s)}–${tc(e)}</span><div class="play"></div></button><div class="meta"><h3>${esc(t)}</h3><p>${esc(l)} · <a href="${Y(id)}" target="_blank" rel="noopener">Full film ↗</a></p></div></div>`).join('');
-cg.onclick=e=>{const b=e.target.closest('button.thumb');if(!b)return;const d=document.createElement('div');d.className='thumb';
-  d.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${b.dataset.v}?start=${b.dataset.s}&end=${b.dataset.e}&autoplay=1&rel=0" title="Clip" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;b.replaceWith(d)};
-
-/* Time Management cast: [group, character, actor, blurb] */
-const CAST=[
-["Students","Eric “Hollywood” Coal","","The loudest of the three. Wildly illogical on the surface, secretly the most on the ball."],
-["Students","Penny Bates","","Mature, always a step ahead and relentless about the truth. Lives in permanent déjà vu."],
-["Students","Toddrick Booney Jr.","Noel Marte","The logical skeptic who keeps the group on the tracks. His fear outweighs his curiosity."],
-["Students","Duncan Lane","Elisha De Silva","The town’s cautionary tale and the first minor wiped by the CIA. The assumed unreliable source."],
-["Students","Violet Rosewood","Abigail Wasielwski","Well traveled and lives by a rule of no assumptions. Some things just can’t be explained."],
-["TMA","Lord Zabius","Zyhri Williams","The omnipotent head of the TMA and heir to the family behind the time technology."],
-["TMA","Department Head Ralph","Robin Crespo","A bureaucrat and middle man who guards the status quo and knows his place."],
-["Agent","Agent X","","A lifelong public servant who answers to his own code before any order."],
-["CIA","Deputy Dullahan","Connor O’Flanagan","The CIA’s highest-ranking officer. Guilt-free, superior and chillingly calculated."],
-["CIA","White Tiger","Brummel Peery","Sergeant Ankou, head of CIA damage control. Dullahan is the head; he is the body."]];
-document.getElementById('cast').innerHTML=CAST.map(([g,n,a,d])=>`<div class="cc reveal"><small>${g}</small><h3>${esc(n)}</h3>${a?`<em>Played by ${esc(a)}</em>`:''}<p>${esc(d)}</p></div>`).join('');
-
-/* Contact form */
-const cf=document.getElementById('cf'),fs=document.getElementById('fs');
-document.querySelectorAll('[data-topic]').forEach(a=>a.addEventListener('click',()=>{cf.topic.value=a.dataset.topic}));
-cf.addEventListener('submit',async e=>{
-  e.preventDefault();
-  const f=new FormData(cf),d={name:f.get('name').trim(),email:f.get('email').trim(),phone:f.get('phone').trim(),topic:f.get('topic'),message:f.get('message').trim(),signup:f.getAll('lists').join(', '),updates_by:f.getAll('channels').join(', '),_gotcha:f.get('_gotcha'),_subject:'200Block site: '+f.get('topic')};
-  const say=(m,ok)=>{fs.textContent=m;fs.className=ok?'ok':'err'};
-  if(d.updates_by.includes('Text')&&!d.phone)return say('Add a phone number to get text blasts.');
-  if(d.signup&&!d.updates_by)return say('Choose emails, text blasts, or both for your updates.');
-  if(!CONFIG.FORM_ENDPOINT)return say('The form isn’t connected to an inbox yet.');
-  say('Sending…',true);
-  try{const r=await fetch(CONFIG.FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(d)});
-    if(!r.ok)throw new Error(r.status);cf.reset();say('Thanks! We’ll be in touch soon.',true)}
-  catch(err){say('Something went wrong. Please try again in a moment.')}
-});
-
-renderAll();
-hydrate();
-syncFromYouTube();
-
+renderReel();observe();hydrate();syncFromYouTube();
 const pg=document.getElementById('pg');let tick=false;
 addEventListener('scroll',()=>{if(tick)return;tick=true;requestAnimationFrame(()=>{const y=scrollY;document.documentElement.style.setProperty('--sy',y);pg.style.width=(y/(document.body.scrollHeight-innerHeight)*100)+'%';tick=false})},{passive:true});
 let down=false,sx=0,sl=0;
