@@ -1,1 +1,395 @@
-PLACEHOLDER_INDEX
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>200Block — a creative collective</title>
+<meta name="description" content="200block — a creative collective. Short films, 200TV and more.">
+<style>
+:root{--bg:#000;--fg:#f5f5f7;--mute:#86868b;--card:#0d0a0a;--line:#2c1a1c;--acc:#ff2d3a}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 max(22px,calc((100vw - 1100px)/2));background:rgba(0,0,0,.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,.08)}
+nav .logo{font-weight:600;letter-spacing:-.02em}
+nav ul{display:flex;gap:26px;list-style:none;font-size:12px;color:#d2d2d7}
+nav ul a{transition:color .2s}nav ul a:hover{color:#fff}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--acc);width:0;z-index:60}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 22px 60px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 35%,rgba(255,30,45,.22),transparent 60%);transform:translateY(calc(var(--sy,0)*.3px))}
+.hero h1{font-size:clamp(64px,15vw,190px);font-weight:700;letter-spacing:-.06em;line-height:.95;background:linear-gradient(180deg,#fff 30%,#6e6e73);-webkit-background-clip:text;background-clip:text;color:transparent;position:relative;transform:scale(calc(1 - var(--sy,0)*.0003));opacity:calc(1 - var(--sy,0)*.0014)}
+.hero p{font-size:clamp(19px,2.6vw,28px);color:var(--mute);margin-top:18px;position:relative}
+.btns{display:flex;gap:14px;margin-top:36px;position:relative;flex-wrap:wrap;justify-content:center}
+.btn{padding:12px 24px;border-radius:980px;font-size:17px;transition:transform .15s,background .2s}
+.btn.p{background:var(--acc);color:#fff}.btn.p:hover{background:#ff453a}
+.btn.s{border:1px solid var(--acc);color:var(--acc)}.btn.s:hover{background:rgba(255,45,58,.12)}
+.btn:active{transform:scale(.94)}
+.strip-deco{position:absolute;bottom:0;left:0;right:0;height:34px;opacity:.5}
+.sprockets{background:repeating-linear-gradient(90deg,transparent 0 14px,#3a1015 14px 34px,transparent 34px 48px);height:14px;margin:0 0 0;-webkit-mask:linear-gradient(#000,#000);}
+section{padding:120px 22px;max-width:1180px;margin:0 auto}
+.eyebrow{color:var(--acc);font-weight:600;font-size:15px;margin-bottom:10px}
+h2{font-size:clamp(36px,6vw,64px);letter-spacing:-.04em;line-height:1.05;font-weight:700}
+.sub{color:var(--mute);font-size:clamp(17px,2vw,21px);margin-top:14px;max-width:640px}
+.reveal{opacity:0;transform:translateY(46px) scale(.98);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.tape{margin-top:56px;background:#050505;border-radius:6px;padding:0;position:relative;box-shadow:0 0 0 1px var(--line)}
+.tape::before,.tape::after{content:"";display:block;height:22px;background:repeating-linear-gradient(90deg,transparent 0 10px,#3a1015 10px 30px,transparent 30px 44px);background-size:44px 100%;background-position:calc(var(--sy,0)*-.4px) 0;-webkit-mask:linear-gradient(#000 0 0);background-clip:padding-box}
+.frame-row{display:flex;gap:18px;padding:14px 22px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.frame-row::-webkit-scrollbar{display:none}
+.card{flex:0 0 min(78vw,420px);scroll-snap-align:center;display:block;position:relative;border-radius:4px;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.card:hover{transform:translateY(-6px) scale(1.02)}
+.card:active{transform:scale(.97)}
+.thumb{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#1b1b1f,#0a0a0c);overflow:hidden;border-radius:4px;border:1px solid var(--line)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s,filter .4s,opacity .5s;filter:brightness(.88);opacity:0}
+.thumb img.ok{opacity:1}
+.card:hover .thumb img{transform:scale(1.07);filter:brightness(1.05)}
+.thumb .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#444;font-size:34px;font-weight:700;letter-spacing:-.04em;z-index:0}
+.thumb img{position:relative;z-index:1}
+.play{position:absolute;z-index:2;left:50%;top:50%;width:62px;height:62px;margin:-31px;border-radius:50%;background:rgba(0,0,0,.55);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.7);transition:.3s}
+.play::after{content:"";border-left:18px solid #fff;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px}
+.card:hover .play,.card:focus-visible .play{opacity:1;transform:none}
+.card:focus-visible{outline:2px solid var(--acc);outline-offset:4px}
+.fno{position:absolute;z-index:2;top:8px;left:10px;font:600 11px ui-monospace,Menlo,monospace;color:#ff5a63;letter-spacing:.1em;text-shadow:0 1px 4px #000}
+.meta{padding:12px 4px 4px}
+.meta h3{font-size:17px;font-weight:600;letter-spacing:-.01em}
+.meta p{color:var(--mute);font-size:13px;margin-top:3px}
+.views{display:inline-block;background:rgba(255,45,58,.15);color:#ff8a90;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:600;margin-right:6px}
+.flag{display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:center;margin-top:56px}
+.flag .thumb{border-radius:14px;box-shadow:0 40px 100px -30px rgba(255,45,58,.35)}
+.flag h3{font-size:clamp(30px,4vw,48px);letter-spacing:-.03em;line-height:1.05}
+.big{font-size:clamp(56px,9vw,96px);font-weight:700;letter-spacing:-.05em;background:linear-gradient(90deg,#ff2d3a,#ff7a45);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.flag-card{display:block;transition:transform .4s}
+.flag-card:hover{transform:scale(1.015)}.flag-card:active{transform:scale(.98)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:34px 22px;margin-top:56px}
+.grid .card{flex:none}
+.tabs{display:flex;gap:8px;margin-top:36px;flex-wrap:wrap}
+.tab{background:#1a1112;border:0;color:#d2d2d7;padding:9px 18px;border-radius:99px;font-size:14px;cursor:pointer;transition:.2s}
+.tab:hover{background:#2e1a1d}.tab:active{transform:scale(.94)}
+.tab.on{background:#f5f5f7;color:#000}
+.links{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+footer{border-top:1px solid var(--line);padding:50px 22px;text-align:center;color:var(--mute);font-size:13px}
+footer .links{justify-content:center;margin:0 0 20px}
+footer a{color:#d2d2d7}footer a:hover{color:#fff}
+.clips{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:34px 22px;margin-top:56px}
+.clips .card{flex:none}
+button.thumb{display:block;width:100%;padding:0;cursor:pointer;color:inherit}
+.thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3}
+.tc{position:absolute;z-index:2;right:8px;bottom:8px;background:rgba(0,0,0,.7);padding:2px 9px;border-radius:99px;font:600 11px ui-monospace,Menlo,monospace}
+.meta a{color:var(--acc)}
+.tm{isolation:isolate;position:relative}
+.tm::before{content:"";position:absolute;inset:40px 0;z-index:-1;background:linear-gradient(rgba(53,232,255,.06) 1px,transparent 1px) 0 0/48px 48px,linear-gradient(90deg,rgba(53,232,255,.06) 1px,transparent 1px) 0 0/48px 48px;-webkit-mask:radial-gradient(ellipse at 50% 30%,#000,transparent 70%);mask:radial-gradient(ellipse at 50% 30%,#000,transparent 70%)}
+.tm .eyebrow{color:var(--cy);font:600 13px ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase}
+.tm-hero{display:flex;align-items:center;gap:56px;margin-top:28px;flex-wrap:wrap}
+.clock{width:min(260px,62vw);aspect-ratio:1;flex:none;filter:drop-shadow(0 0 18px rgba(53,232,255,.45))}
+.clock svg{width:100%;height:100%}
+.clock .a{transform-box:view-box;transform-origin:100px 100px;animation:spin 40s linear infinite reverse}
+.clock .h{animation:spin 90s linear infinite}.clock .m{animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tm h2{font-size:clamp(40px,8vw,92px);line-height:.95;background:linear-gradient(90deg,var(--cy),var(--vi));-webkit-background-clip:text;background-clip:text;color:transparent;animation:gl 5s infinite}
+@keyframes gl{0%,92%,100%{transform:none;filter:none}94%{transform:translateX(-3px);filter:drop-shadow(3px 0 var(--acc)) drop-shadow(-3px 0 var(--cy))}96%{transform:translateX(3px)}}
+.by{font-size:clamp(18px,2.4vw,24px);margin-top:14px;color:#d2d2d7}
+.tag{margin-top:10px;font-style:italic;color:var(--cy)}
+.status{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:7px 16px;border:1px solid rgba(53,232,255,.4);border-radius:99px;font:600 12px ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--cy)}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--cy);box-shadow:0 0 10px var(--cy);animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.25}}
+.syn{max-width:760px;margin-top:56px;font-size:clamp(17px,2vw,21px);line-height:1.6;color:#d2d2d7}
+.syn p+p{margin-top:18px}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.chips span{padding:6px 14px;border-radius:99px;background:rgba(138,92,255,.14);border:1px solid rgba(138,92,255,.4);font-size:13px;color:#cdbdff}
+.cast{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-top:48px}
+.cc{padding:20px;border:1px solid rgba(53,232,255,.22);background:linear-gradient(160deg,rgba(53,232,255,.07),rgba(138,92,255,.05));border-radius:4px 18px 4px 18px}
+.cc small{font:600 11px ui-monospace,Menlo,monospace;letter-spacing:.12em;color:var(--cy);text-transform:uppercase}
+.cc h3{font-size:19px;margin:8px 0 2px;letter-spacing:-.01em}
+.cc em{display:block;color:#b9a6ff;font-size:13px;font-style:normal}
+.cc p{color:var(--mute);font-size:14px;margin-top:10px;line-height:1.5}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:56px}
+.panel{padding:34px;border:1px solid var(--line);border-radius:18px;background:var(--card);display:flex;flex-direction:column;align-items:flex-start}
+.panel h3{font-size:26px;letter-spacing:-.02em}
+.panel p{color:var(--mute);margin-top:10px}
+.panel ul{margin:20px 0 28px;padding-left:20px;color:#d2d2d7;line-height:1.7;flex:1}
+.form{margin-top:48px;max-width:760px;display:grid;gap:18px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.form label{display:grid;gap:6px;font-size:14px;color:#d2d2d7}
+.form label span,.fine{color:var(--mute);font-size:12px}
+.form b{color:var(--acc)}
+.form input:not([type=checkbox]),.form select,.form textarea{width:100%;background:#0d0a0a;border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--fg);font:inherit;font-size:16px}
+.form :is(input,select,textarea):focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.form fieldset{border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;gap:10px 26px;flex-wrap:wrap}
+.form legend{padding:0 8px;font-size:13px;color:var(--mute)}
+.form label.chk{display:flex;align-items:center;gap:9px;cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--acc)}
+button.btn{border:0;cursor:pointer;font:inherit;font-size:17px;justify-self:start}
+#fs.ok{color:#5ee08a}#fs.err{color:#ff8a90}
+.tm-shots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px;max-width:520px}
+.tm-shots .t{position:relative;aspect-ratio:16/9;border:1px solid rgba(53,232,255,.28);border-radius:4px 14px 4px 14px;overflow:hidden;background:#0a0a0c}
+.tm-shots img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .6s,transform .3s}
+.tm-shots img.ok{opacity:1}
+.tm-shots a:hover img{transform:scale(1.06)}
+@media(max-width:820px){.tm-shots{grid-template-columns:repeat(2,1fr)}.two,.row{grid-template-columns:1fr}.tm-hero{gap:30px}nav ul{max-width:66vw;overflow-x:auto;scrollbar-width:none}nav ul::-webkit-scrollbar{display:none}}
+@media(prefers-reduced-motion:reduce){.clock .a,.tm h2,.status i{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="progress" id="pg"></div>
+<nav><a href="#top" class="logo">200Block</a>
+<ul><li><a href="#flagship">Featured</a></li><li><a href="#top-films">Top Films</a></li><li><a href="#clips">Clips</a></li><li><a href="#upcoming">Upcoming</a></li><li><a href="#archive">Archive</a></li><li><a href="#consult">Consult</a></li><li><a href="#contact">Contact</a></li><li><a href="https://www.youtube.com/@200block" target="_blank" rel="noopener">YouTube</a></li></ul></nav>
+
+<header class="hero" id="top">
+<h1>200Block</h1>
+<p>a creative collective.</p>
+<div class="btns"><a class="btn p" href="https://www.youtube.com/watch?v=193TXI7meKE" target="_blank" rel="noopener">Watch The Last Collection</a><a class="btn s" href="#top-films">Explore the films</a></div>
+<div class="strip-deco sprockets"></div>
+</header>
+
+<section id="flagship">
+<div class="reveal"><div class="eyebrow">Most watched</div><h2>The film that started it all.</h2></div>
+<div class="flag reveal">
+<a class="flag-card" href="https://www.youtube.com/watch?v=193TXI7meKE" target="_blank" rel="noopener" aria-label="Watch The Last Collection on YouTube">
+<div class="thumb"><div class="ph">200Block</div><img data-id="193TXI7meKE" alt="The Last Collection | A Short Film"><div class="play"></div></div></a>
+<div><div class="big" id="flagViews">8.2K</div><p class="sub" style="margin-top:6px">views on YouTube</p>
+<h3 style="margin-top:28px">The Last Collection</h3>
+<p class="sub">A short film · 19:09</p>
+<div class="links"><a class="btn p" href="https://www.youtube.com/watch?v=193TXI7meKE" target="_blank" rel="noopener">Watch film</a><a class="btn s" href="https://www.youtube.com/watch?v=tLvidUu4VGI" target="_blank" rel="noopener">Trailer</a></div></div>
+</div>
+</section>
+
+<section id="top-films" style="padding-bottom:40px">
+<div class="reveal"><div class="eyebrow">Cinema tape</div><h2>Top films, by views.</h2>
+<p class="sub">Scroll the reel. Select any frame to watch on YouTube.</p></div>
+<div class="tape reveal"><div class="frame-row" id="reel"></div></div>
+</section>
+
+<section id="clips">
+<div class="reveal"><div class="eyebrow">Highlights</div><h2>Watch the best parts.</h2>
+<p class="sub">Short clips from our most-watched films. Press play to watch right here, then catch the full film on YouTube.</p></div>
+<div class="clips" id="clipGrid"></div>
+</section>
+
+<section id="upcoming" class="tm">
+<div class="reveal"><div class="eyebrow">Upcoming project</div></div>
+<div class="tm-hero reveal">
+<div class="clock"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="94" fill="none" stroke="#35e8ff" stroke-opacity=".55"/><circle class="a" cx="100" cy="100" r="82" fill="none" stroke="#8a5cff" stroke-width="3" stroke-dasharray="2 9"/><circle class="a" cx="100" cy="100" r="66" fill="none" stroke="#35e8ff" stroke-opacity=".6" stroke-dasharray="40 14 4 14"/><g stroke="#35e8ff" stroke-width="3" stroke-linecap="round"><line class="a h" x1="100" y1="100" x2="100" y2="60"/><line class="a m" x1="100" y1="100" x2="100" y2="38" stroke-width="2"/></g><circle cx="100" cy="100" r="5" fill="#8a5cff"/></svg></div>
+<div><p class="sub" style="margin:0">a 200 Block Production</p><h2>Time Management</h2><p class="by">by Brandon Hawkins</p><p class="tag">“Believe what you see, never what they say.”</p><div class="status"><i></i>In development · Release date TBA</div><div class="tm-shots" id="tmShots"></div></div>
+</div>
+<div class="syn reveal">
+<p>In a small town, everyone knows the story of Duncan Lane: the “boop” kid, the first minor ever wiped by the CIA, the cautionary tale of knowing too much too early. Three friends don’t buy it.</p>
+<p>Hollywood is sure it’s all connected. Penny can’t shake the feeling she’s lived this before. Todd just wants everyone to stay out of trouble, even as his curiosity pulls him in. Their search leads to the TMA, an organization built on one family’s time technology and ruled by the unreadable Lord Zabius, and to the CIA men whose job is to make inconvenient truths disappear.</p>
+<p>With a bureaucrat guarding the status quo and an agent torn between his orders and his code, the friends discover that the only thing worse than being wrong about what you saw is being right.</p>
+<div class="chips"><span>Truth vs. authority</span><span>Memory &amp; erasure</span><span>Time as power</span><span>Fear vs. curiosity</span></div>
+</div>
+<div class="cast" id="cast"></div>
+</section>
+
+<section id="archive">
+<div class="reveal"><div class="eyebrow">Archive</div><h2>Everything we've made.</h2>
+<p class="sub">Films, 200TV episodes, Inter-Dimensional Streaming, and music.</p></div>
+<div class="tabs reveal" id="tabs"></div>
+<div class="grid" id="grid"></div>
+<p class="sub" id="note" style="margin-top:50px;font-size:13px">View counts are a public snapshot from November 2026 and will change.</p>
+</section>
+
+<section id="consult">
+<div class="reveal"><div class="eyebrow">Consultations</div><h2>Sharpen it before the camera rolls.</h2>
+<p class="sub">One-on-one sessions with the 200Block team for filmmakers at any stage.</p></div>
+<div class="two reveal">
+<article class="panel"><h3>Script consultation</h3><p>Get honest, practical notes on your screenplay.</p>
+<ul><li>Structure, pacing and act breaks</li><li>Character voice and dialogue</li><li>What to trim for a short-film runtime</li><li>Written feedback you can act on</li></ul>
+<a class="btn p" href="#contact" data-topic="Script consultation">Book a script consult</a></article>
+<article class="panel"><h3>Storyboard &amp; shot list consultation</h3><p>Turn scenes into a plan your crew can shoot.</p>
+<ul><li>Breaking scenes into shots and coverage</li><li>Storyboard review: framing, blocking, continuity</li><li>Shot lists sized to your crew, locations and schedule</li><li>Camera and lens suggestions</li></ul>
+<a class="btn p" href="#contact" data-topic="Storyboard &amp; shot list consultation">Book a shot list consult</a></article>
+</div>
+</section>
+
+<section id="contact">
+<div class="reveal"><div class="eyebrow">Contact</div><h2>Let’s talk.</h2>
+<p class="sub">Questions, consultations, collaborations. Name and email are required; everything else is optional.</p></div>
+<form class="form reveal" id="cf">
+<div class="row"><label>Name <b>*</b><input name="name" required autocomplete="name"></label>
+<label>Email <b>*</b><input type="email" name="email" required autocomplete="email"></label></div>
+<div class="row"><label>Phone <span>(optional)</span><input type="tel" name="phone" autocomplete="tel" pattern="[0-9+()\-\s.]{7,20}" title="Digits, spaces, dashes or parentheses"></label>
+<label>I’m interested in<select name="topic"><option>General inquiry</option><option>Script consultation</option><option>Storyboard &amp; shot list consultation</option><option>Time Management</option></select></label></div>
+<label>Message <span>(optional)</span><textarea name="message" rows="4"></textarea></label>
+<fieldset><legend>Sign me up for (optional)</legend>
+<label class="chk"><input type="checkbox" name="lists" value="Newsletter"> Newsletter</label>
+<label class="chk"><input type="checkbox" name="lists" value="Deals"> Deals</label>
+<label class="chk"><input type="checkbox" name="lists" value="Promotions"> Promotions</label></fieldset>
+<fieldset><legend>Send updates by</legend>
+<label class="chk"><input type="checkbox" name="channels" value="Email"> Emails</label>
+<label class="chk"><input type="checkbox" name="channels" value="Text"> Text blasts</label></fieldset>
+<p class="fine">Text blasts require a phone number. By selecting text, you agree to receive recurring texts from 200Block. Message and data rates may apply. Reply STOP to opt out. Unsubscribe from emails anytime.</p>
+<input name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
+<button class="btn p" type="submit">Send</button><p id="fs" role="status"></p>
+</form>
+</section>
+
+<footer>
+<div class="links"><a href="https://www.youtube.com/@200block" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/200blockprod/" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@200blockprod" target="_blank" rel="noopener">TikTok</a></div>
+200Block · a creative collective.
+</footer>
+
+<script>
+const CONFIG={API_KEY:"",HANDLE:"200block",
+  FORM_ENDPOINT:""};
+
+const Y=id=>`https://www.youtube.com/watch?v=${id}`;
+let V=[
+["Half A Tune | The 200block Batman Halloween Special","_dNWN_3M0EE","662","","Films"],
+["Cleaning House (2024)","Bm9wEoHVad8","633","","Films"],
+["Detention (2024)","d7dLE78wxBE","512","Sep 15, 2024","Films"],
+["FLIP (2026)","DJR1C9In5cw","416","Jan 20, 2026","Films"],
+["GUESS WHOS BACK · 200TV 004","gQ_09gVqBe4","277","Sep 6, 2023","200TV"],
+["Stairs (2024)","czn6bo9s8gA","246","Sep 24, 2024","Films"],
+["Again? (2025)","BLOXBfl8DqQ","235","Sep 20, 2025","Films"],
+["Butler's Food Store","m3RVgiH2pmA","190","Apr 16, 2025","Inter-Dimensional"],
+["Post Race","xEjjsLOQ2AM","186","May 15, 2025","Inter-Dimensional"],
+["SOMETHING IN THE SNOW","_Ws0xAg0pVs","181","Feb 28, 2026","Inter-Dimensional"],
+["Mitosis","XrbAHgtfaio","181","Apr 14, 2025","Inter-Dimensional"],
+["Fateful Shade (2024)","8BiW-2un5Xc","159","Jan 20, 2025","Films"],
+["The Last Collection · Official Trailer","tLvidUu4VGI","153","Aug 11, 2023","Films"],
+["DAY ONE, OR ONE DAY? · 200TV 005","S3rr1MPVIlE","138","Feb 19, 2025","200TV"],
+["Therapy (2024)","lMUg8HwLBc0","110","Oct 8, 2024","Films"],
+["Boo Boo Baloo · Classic Club House Mix","21YHQOjzMc8","109","Mar 13, 2025","Music"],
+["bts · 200TV 009","h9HfwNcTee4","100","Mar 18, 2026","200TV"],
+["SUNBUM, SUBS, AND STROLLS · 200TV 003","_9gK5N3JrJA","100","Jul 14, 2023","200TV"],
+["OXFORD AND BATH · 200TV 006","OXmWQTihJgs","96","Feb 27, 2025","200TV"],
+["HE CANT EVEN COME · 200TV 002","oAbI_L-Bzv4","83","Jul 2, 2023","200TV"],
+["FAILURE IS NOT AN OPTION. · 200TV 007","KnMlnzQG1Hs","79","Apr 8, 2025","200TV"],
+["WHO DOESN'T LIKE HAVING FUN","nHzpIna6w7g","75","Sep 30, 2026","Inter-Dimensional"],
+["WASSUP BRO · 200TV 008","T9P6sbarDIQ","44","Oct 19, 2025","200TV"],
+["FLIP (2026) · Official Trailer","yv-z-4BzxAc","38","Jan 8, 2026","Films"],
+["Respect","73UWdRAyVlk","38","Sep 21, 2025","Inter-Dimensional"],
+["The Crown Beneath Our Feet · A Digital Postcard","LjsbAbtfStM","30","Apr 22, 2025","Films"],
+["AYYYEEE AYYYEE AYYYYEEE · 200TV 009","Qpb2uvb1UCE","","","200TV"],
+["PILOT · 200TV 001","zBKdVSE_NXQ","","","200TV"],
+["Church Music · Deep Groove House Mix","Yzz0ZLkM2Ng","","","Music"]
+];
+
+const T={};
+const SIZES=['maxresdefault','sddefault','hqdefault','mqdefault','default'];
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+const fmt=n=>{n=+n;return n>=1000?(n/1000).toFixed(n>=10000?0:1).replace(/\.0$/,'')+'K':String(n)};
+const catOf=t=>/200TV/i.test(t)?'200TV':/inter-dimensional/i.test(t)?'Inter-Dimensional':/\bmix\b|house/i.test(t)?'Music':'Films';
+const probe=url=>new Promise(res=>{const i=new Image();i.referrerPolicy='no-referrer';i.onload=()=>res(i.naturalWidth>120);i.onerror=()=>res(false);i.src=url});
+async function oembedThumb(id){
+  try{const r=await fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(Y(id))}&format=json`);
+    if(!r.ok)return null;return (await r.json()).thumbnail_url||null}catch(e){return null}
+}
+async function loadThumb(img){
+  const id=img.dataset.id;if(!id||img.classList.contains('ok'))return;
+  const urls=[T[id],...SIZES.map(s=>`https://i.ytimg.com/vi/${id}/${s}.jpg`)].filter(Boolean);
+  for(const u of urls){if(await probe(u)){img.referrerPolicy='no-referrer';img.src=u;img.classList.add('ok');return}}
+  const o=await oembedThumb(id);
+  if(o&&await probe(o)){img.src=o;img.classList.add('ok')}
+}
+const hydrate=(root=document)=>root.querySelectorAll('img[data-id]:not(.ok)').forEach(loadThumb);
+
+function card(v,i,showNo){
+  const [t,id,vw,d,c]=v;
+  const sub=[c,d].filter(Boolean).join(' · ');
+  return `<a class="card reveal" href="${Y(id)}" target="_blank" rel="noopener" aria-label="Watch ${esc(t)} on YouTube">
+ <div class="thumb"><div class="ph">200</div><img data-id="${id}" alt="${esc(t)}"><span class="fno">${showNo?'FRAME '+String(i+1).padStart(2,'0'):c.toUpperCase()}</span><div class="play"></div></div>
+ <div class="meta"><h3>${esc(t)}</h3><p>${vw?`<span class="views">${vw} views</span>`:''}${sub}</p></div></a>`;
+}
+
+const reel=document.getElementById('reel'),tabs=document.getElementById('tabs'),grid=document.getElementById('grid');
+let io,activeCat='All';
+function observe(){io&&io.disconnect();io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>{el.style.transitionDelay=el.closest('.grid')?((Array.from(el.parentNode.children).indexOf(el)%4)*70)+'ms':'0ms';io.observe(el)})}
+function renderGrid(){grid.innerHTML=V.filter(v=>activeCat=='All'||v[4]==activeCat).map((v,i)=>card(v,i)).join('');observe();hydrate(grid)}
+function renderAll(){
+  const top=V.filter(v=>v[4]=='Films'&&!/trailer/i.test(v[0])&&v[1]!=='193TXI7meKE').slice(0,7);
+  reel.innerHTML=top.map((v,i)=>card(v,i,true).replace(' reveal','')).join('');
+  const cats=['All',...new Set(V.map(v=>v[4]))];
+  if(!cats.includes(activeCat))activeCat='All';
+  tabs.innerHTML=cats.map(c=>`<button class="tab${c==activeCat?' on':''}" data-c="${c}">${c}</button>`).join('');
+  hydrate(reel);renderGrid();
+}
+tabs.onclick=e=>{const b=e.target.closest('.tab');if(!b)return;activeCat=b.dataset.c;tabs.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===b));renderGrid()};
+
+async function syncFromYouTube(){
+  const K=CONFIG.API_KEY;if(!K)return;
+  const api=(p,q)=>fetch(`https://www.googleapis.com/youtube/v3/${p}?key=${K}&${q}`).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()});
+  try{
+    const ch=await api('channels',`part=contentDetails&forHandle=${encodeURIComponent('@'+CONFIG.HANDLE)}`);
+    const up=ch.items[0].contentDetails.relatedPlaylists.uploads;
+    let ids=[],tok='';
+    do{const p=await api('playlistItems',`part=contentDetails&maxResults=50&playlistId=${up}${tok?'&pageToken='+tok:''}`);
+      ids.push(...p.items.map(i=>i.contentDetails.videoId));tok=p.nextPageToken||''}while(tok);
+    const list=[];
+    for(let i=0;i<ids.length;i+=50){
+      const r=await api('videos',`part=snippet,statistics&id=${ids.slice(i,i+50).join(',')}`);
+      r.items.forEach(it=>{const s=it.snippet,th=s.thumbnails||{};
+        T[it.id]=(th.maxres||th.standard||th.high||th.medium||th.default||{}).url;
+        const views=+it.statistics.viewCount||0;
+        list.push([s.title,it.id,views,new Date(s.publishedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),catOf(s.title)])});
+    }
+    list.sort((a,b)=>b[2]-a[2]);
+    V=list.map(v=>[v[0],v[1],v[2]?fmt(v[2]):'',v[3],v[4]]);
+    const f=list.find(v=>v[1]==='193TXI7meKE');if(f)document.getElementById('flagViews').textContent=fmt(f[2]);
+    document.getElementById('note').textContent='Titles, thumbnails and view counts are synced live from YouTube.';
+    renderAll();hydrate();
+  }catch(e){console.warn('YouTube API sync failed, using built-in list.',e)}
+}
+
+const CLIPS=[
+["193TXI7meKE","The Last Collection","Opening scene",0,60],
+["193TXI7meKE","The Last Collection","The turn",600,660],
+["193TXI7meKE","The Last Collection","Final scene",1080,1149],
+["_dNWN_3M0EE","Half A Tune","Opening scene",0,60],
+["_dNWN_3M0EE","Half A Tune","Joker scene",240,300],
+["Bm9wEoHVad8","Cleaning House","Opening scene",0,60],
+["Bm9wEoHVad8","Cleaning House","Midpoint",300,360],
+["d7dLE78wxBE","Detention","Opening scene",0,60],
+["d7dLE78wxBE","Detention","The confrontation",270,330]];
+const tc=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+const cg=document.getElementById('clipGrid');
+cg.innerHTML=CLIPS.map(([id,t,l,s,e])=>`<div class="card reveal"><button class="thumb" data-v="${id}" data-s="${s}" data-e="${e}" aria-label="Play clip: ${esc(t)}, ${esc(l)}"><div class="ph">200</div><img data-id="${id}" alt=""><span class="fno">CLIP</span><span class="tc">${tc(s)}–${tc(e)}</span><div class="play"></div></button><div class="meta"><h3>${esc(t)}</h3><p>${esc(l)} · <a href="${Y(id)}" target="_blank" rel="noopener">Full film ↗</a></p></div></div>`).join('');
+cg.onclick=e=>{const b=e.target.closest('button.thumb');if(!b)return;const d=document.createElement('div');d.className='thumb';
+  d.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${b.dataset.v}?start=${b.dataset.s}&end=${b.dataset.e}&autoplay=1&rel=0" title="Clip" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;b.replaceWith(d)};
+
+const CAST=[
+["Students","Eric “Hollywood” Coal","","The loudest of the three. Wildly illogical on the surface, secretly the most on the ball."],
+["Students","Penny Bates","","Mature, always a step ahead and relentless about the truth. Lives in permanent déjà vu."],
+["Students","Toddrick Booney Jr.","Noel Marte","The logical skeptic who keeps the group on the tracks. His fear outweighs his curiosity."],
+["Students","Duncan Lane","Elisha De Silva","The town’s cautionary tale and the first minor wiped by the CIA. The assumed unreliable source."],
+["Students","Violet Rosewood","Abigail Wasielwski","Well traveled and lives by a rule of no assumptions. Some things just can’t be explained."],
+["TMA","Lord Zabius","Zyhri Williams","The omnipotent head of the TMA and heir to the family behind the time technology."],
+["TMA","Department Head Ralph","Robin Crespo","A bureaucrat and middle man who guards the status quo and knows his place."],
+["Agent","Agent X","","A lifelong public servant who answers to his own code before any order."],
+["CIA","Deputy Dullahan","Connor O’Flanagan","The CIA’s highest-ranking officer. Guilt-free, superior and chillingly calculated."],
+["CIA","White Tiger","Brummel Peery","Sergeant Ankou, head of CIA damage control. Dullahan is the head; he is the body."]];
+document.getElementById('cast').innerHTML=CAST.map(([g,n,a,d])=>`<div class="cc reveal"><small>${g}</small><h3>${esc(n)}</h3>${a?`<em>Played by ${esc(a)}</em>`:''}<p>${esc(d)}</p></div>`).join('');
+
+const cf=document.getElementById('cf'),fs=document.getElementById('fs');
+document.querySelectorAll('[data-topic]').forEach(a=>a.addEventListener('click',()=>{cf.topic.value=a.dataset.topic}));
+cf.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const f=new FormData(cf),d={name:f.get('name').trim(),email:f.get('email').trim(),phone:f.get('phone').trim(),topic:f.get('topic'),message:f.get('message').trim(),signup:f.getAll('lists').join(', '),updates_by:f.getAll('channels').join(', '),_gotcha:f.get('_gotcha'),_subject:'200Block site: '+f.get('topic')};
+  const say=(m,ok)=>{fs.textContent=m;fs.className=ok?'ok':'err'};
+  if(d.updates_by.includes('Text')&&!d.phone)return say('Add a phone number to get text blasts.');
+  if(d.signup&&!d.updates_by)return say('Choose emails, text blasts, or both for your updates.');
+  if(!CONFIG.FORM_ENDPOINT)return say('The form isn’t connected to an inbox yet.');
+  say('Sending…',true);
+  try{const r=await fetch(CONFIG.FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(d)});
+    if(!r.ok)throw new Error(r.status);cf.reset();say('Thanks! We’ll be in touch soon.',true)}
+  catch(err){say('Something went wrong. Please try again in a moment.')}
+});
+
+document.getElementById('tmShots').innerHTML=['193TXI7meKE','_dNWN_3M0EE','Bm9wEoHVad8','d7dLE78wxBE','DJR1C9In5cw','czn6bo9s8gA'].map(id=>`<a class="t" href="${Y(id)}" data-id="${id}" target="_blank" rel="noopener" aria-label="From our films: watch ${id}"></a>`).join('');
+document.querySelectorAll('#tmShots a').forEach(a=>{const i=document.createElement('img');i.dataset.id=a.dataset.id;i.alt='From a 200Block film';i.onload=()=>i.classList.add('ok');a.appendChild(i)});
+renderAll();
+hydrate();
+syncFromYouTube();
+
+const pg=document.getElementById('pg');
+let tick=false;
+addEventListener('scroll',()=>{if(tick)return;tick=true;requestAnimationFrame(()=>{const y=scrollY;document.documentElement.style.setProperty('--sy',y);pg.style.width=(y/(document.body.scrollHeight-innerHeight)*100)+'%';tick=false})},{passive:true});
+let down=false,sx=0,sl=0;
+reel.addEventListener('mousedown',e=>{down=true;sx=e.pageX;sl=reel.scrollLeft});
+addEventListener('mouseup',()=>down=false);
+reel.addEventListener('mousemove',e=>{if(down){reel.scrollLeft=sl-(e.pageX-sx)}});
+</script>
+</body>
+</html>
