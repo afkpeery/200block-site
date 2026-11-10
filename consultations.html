@@ -1,1 +1,160 @@
-PLACEHOLDER_CONSULT
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Consulting and creative collaborations with 200Block.">
+	<title>Consultations | 200Block</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			color-scheme: dark;
+			--ink: #080909;
+			--paper: #f2f1ed;
+			--muted: #a4a8a7;
+			--line: #343838;
+			--red: #ff453f;
+			--cyan: #54d9d2;
+			--content: 1180px;
+		}
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body {
+			margin: 0;
+			background: var(--ink);
+			color: var(--paper);
+			font-family: "Space Grotesk", sans-serif;
+			-webkit-font-smoothing: antialiased;
+		}
+		a { color: inherit; text-decoration: none; }
+		img { display: block; width: 100%; }
+		.wrap { width: min(var(--content), calc(100% - 48px)); margin-inline: auto; }
+		.mono, .eyebrow, nav { font-family: "DM Mono", monospace; }
+		nav {
+			position: sticky;
+			top: 0;
+			z-index: 10;
+			display: flex;
+			align-items: center;
+			min-height: 68px;
+			border-bottom: 1px solid rgba(255,255,255,.22);
+			background: rgba(8,9,9,.82);
+			backdrop-filter: blur(10px);
+			font-size: 12px;
+			letter-spacing: .04em;
+			text-transform: uppercase;
+		}
+		nav .wrap, .nav-links { display: flex; align-items: center; }
+		nav .wrap { justify-content: space-between; gap: 24px; }
+		.brand { font: 700 19px "Space Grotesk", sans-serif; letter-spacing: 0; }
+		.brand span { color: var(--red); }
+		.nav-links { gap: clamp(14px, 3vw, 34px); }
+		nav a:hover, nav a:focus-visible { color: var(--cyan); }
+		main { padding: 72px 0 90px; }
+		.hero {
+			padding-bottom: 42px;
+			border-bottom: 1px solid var(--line);
+		}
+		.eyebrow { color: var(--cyan); font-size: 11px; letter-spacing: .15em; text-transform: uppercase; }
+		h1 { margin: 18px 0 0; font-size: clamp(52px, 10vw, 120px); line-height: .9; letter-spacing: -.075em; }
+		.lede { max-width: 760px; margin: 20px 0 0; color: var(--muted); font-size: clamp(18px, 2vw, 28px); line-height: 1.4; }
+		.grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 42px; margin-top: 42px; }
+		.card {
+			padding: 28px;
+			border: 1px solid var(--line);
+			background: rgba(255,255,255,.02);
+		}
+		.card h2 { margin: 0; font-size: clamp(26px, 4vw, 42px); line-height: 1; letter-spacing: -.05em; }
+		.card p { margin: 16px 0 0; color: #d8d8d5; line-height: 1.7; }
+		ul { margin: 18px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.9; }
+		.cta {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			margin-top: 22px;
+			padding: 0 18px;
+			min-height: 46px;
+			border: 1px solid var(--red);
+			background: var(--red);
+			color: #fff;
+			font-weight: 600;
+		}
+		.cta.secondary {
+			border-color: var(--paper);
+			background: transparent;
+			color: var(--paper);
+		}
+		.cta:hover { border-color: var(--cyan); background: var(--cyan); color: var(--ink); }
+		footer { padding: 34px 0; border-top: 1px solid var(--line); }
+		.footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 18px; color: var(--muted); font-size: 12px; }
+		.socials { display: flex; flex-wrap: wrap; gap: 18px; color: var(--paper); }
+		.socials a:hover { color: var(--cyan); }
+		@media (max-width: 760px) {
+			.wrap { width: min(var(--content), calc(100% - 32px)); }
+			nav { min-height: 60px; }
+			.nav-links { gap: 12px; font-size: 10px; }
+			.grid { grid-template-columns: 1fr; }
+			.footer-inner { align-items: flex-start; flex-direction: column; }
+		}
+		@media (max-width: 420px) {
+			.nav-links { gap: 9px; font-size: 9px; }
+		}
+	</style>
+</head>
+<body>
+	<nav aria-label="Main navigation">
+		<div class="wrap">
+			<a class="brand" href="index.html">200<span>Block</span></a>
+			<div class="nav-links">
+				<a href="index.html">Home</a>
+				<a href="archive.html">Archive</a>
+				<a href="consultations.html">Consultations</a>
+			</div>
+		</div>
+	</nav>
+
+	<main>
+		<section class="hero">
+			<div class="wrap">
+				<div class="eyebrow">Creative consulting</div>
+				<h1>Build stories with us.</h1>
+				<p class="lede">200Block partners with artists, founders, and teams to shape cinematic ideas into distinctive visual experiences.</p>
+			</div>
+		</section>
+
+		<section>
+			<div class="wrap grid">
+				<div class="card">
+					<h2>What we offer</h2>
+					<ul>
+						<li>Creative direction for short films and branded storytelling.</li>
+						<li>Campaign and concept development across digital, social, and video.</li>
+						<li>Production support from early draft through final edit.</li>
+						<li>Collaborative strategy for independent creators and culture-first brands.</li>
+					</ul>
+				</div>
+				<div class="card">
+					<h2>Approach</h2>
+					<p>We work closely with clients to turn ambitious ideas into focused narratives with character, atmosphere, and market-ready polish.</p>
+					<p>Whether you're building a launch film, a creative pitch, or a new visual identity, we translate vision into an elegant execution plan.</p>
+					<a class="cta" href="mailto:hello@200block.studio">Book a call</a>
+					<a class="cta secondary" href="index.html#work">See our work</a>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<div class="wrap footer-inner">
+			<span>200Block · A creative collective.</span>
+			<div class="socials">
+				<a href="https://www.youtube.com/@200block" target="_blank" rel="noopener noreferrer">YouTube</a>
+				<a href="https://www.instagram.com/200blockprod/" target="_blank" rel="noopener noreferrer">Instagram</a>
+				<a href="https://www.tiktok.com/@200blockprod" target="_blank" rel="noopener noreferrer">TikTok</a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>
